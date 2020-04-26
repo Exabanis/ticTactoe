@@ -1,5 +1,6 @@
 import java.util.Scanner;
-public class ticTacToe{
+
+public class TicTacToe{
 
     static int row = 0;
     static int column = 0;
@@ -8,6 +9,8 @@ public class ticTacToe{
     static boolean play = true;
     static int i = 0;
     static Scanner input = new Scanner(System.in);
+
+    static Sounds s = new Sounds();
 	//Drawing the board
     static String[][] board = {
     {"-", "-", "-", "-","-", "-", "-", "-", "-", "-","-", "-", "-"},
@@ -32,8 +35,10 @@ public class ticTacToe{
 
 	//method that request the user to choose a move
     static void prompt(String player){
+        
         System.out.print("\nPlayer " + player + ", please enter a row (0, 1 or 2): ");
         row = input.nextInt() + 1;
+        
         System.out.print("Player " + player + ", please enter a column (0, 1 or 2): ");
         column = input.nextInt() + 1;
         if (row < 1 || row > 3){
@@ -81,33 +86,15 @@ public class ticTacToe{
             System.out.println("\nGame over!!! Player " + player + " wins.");
             play = false;
             input.close();
-
+            s.play("player" +player+ ".wav");
         }else if (i == 9){
             System.out.println("\nGame over!!! its a draw");
             play = false;
             input.close();
+            s.play("draw.wav");
         }
-		//check_draw(); can be called to check for draw if the above ELSE IF statement is not present
     }
 
-//Another way of checking a draw
-/*
-    static void check_draw(){
-        int count = 0;
-        for (int i = 0; i < 7; i++){
-            for (int j = 0; j < 13; j++){
-                if ((board[i][j]).equals(" ")){
-                    count++;
-                }
-            }
-        }
-        if (count <= 18){
-            System.out.println("\nGame over!!! its a draw");
-            play = false;
-            input.close();
-        }
-    }
-*/
 	//check if one of the players ha won
     static boolean check_win(){
         if ((board[1][2]).equals("X") || (board[1][2]).equals("O")){
